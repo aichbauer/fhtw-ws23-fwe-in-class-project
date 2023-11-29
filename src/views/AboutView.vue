@@ -36,7 +36,8 @@ export default {
     });
   },
   methods: {
-    toggleEdit() {
+    toggleEdit(test) {
+      console.log(test);
       this.edit = !this.edit;
     },
   },

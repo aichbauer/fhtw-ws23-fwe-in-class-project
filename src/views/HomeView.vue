@@ -6,7 +6,14 @@
     <div v-bind:class="this.hello">
       {{ this.hello }}
     </div>
-    <Button @increase-count-by="increaseCount"></Button>
+    <Button
+      argument="1"
+      methodType="increaseCountBy"
+      @decrease-count-by="decreaseCount"
+      @increase-count-by="increaseCount"
+    >
+      Decrease Count
+    </Button>
     <div v-for="post in posts" v-bind:key="post.id">
       <ul>
         <li>
@@ -14,7 +21,7 @@
           <!-- we create a href for our link to /posts/:id where :id will be replaced by post.id -->
           <!-- the link can only be a string so we need to convert the id to a string -->
           <!-- we use the name of the route that we defined in the router -->
-          <router-link :to="{ name: 'post', params: { id: post.id.toString() } }">{{ post.title }}</router-link>
+          <router-link @mouseenter="displayXY" :to="{ name: 'post', params: { id: post.id.toString() } }">{{ post.title }}</router-link>
         </li>
       </ul>
     </div>
@@ -117,6 +124,16 @@ export default {
     increaseCount(n) {
       this.count += n;
       console.log(this.count);
+    },
+    decreaseCount(n) {
+      this.count -= n;
+      console.log(this.count);
+    },
+    displayXY(event) {
+      console.log('event', event);
+      console.log('event.target', event.target);
+      console.log('event.target.tagName', event.target.tagName);
+      console.log('x: ', event.clientX, 'y: ', event.clientY);
     },
   }
 }

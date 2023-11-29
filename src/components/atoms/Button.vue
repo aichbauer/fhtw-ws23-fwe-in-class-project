@@ -1,5 +1,5 @@
 <template>
-  <button @click="$emit('increaseCountBy', 1)">
+  <button @click="$emit(methodType, parseInt(argument))">
     <slot></slot>
   </button>
 </template>
@@ -8,6 +8,14 @@
 export default {
   name: 'Button',
   props: {
+    argument: {
+      type: Number,
+      default: 1,
+    },
+    methodType: {
+      type: String,
+      default: 'increase-count-by',
+    },
     handleClick: Function,
   }
 }
