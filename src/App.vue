@@ -1,11 +1,18 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link> |
-    <router-link to="/login">Login</router-link>
-  </nav>
+  <Navigation />
   <router-view/>
 </template>
+
+<script>
+import Navigation from '@/components/molecules/Navigation.vue';
+
+export default {
+  name: 'App',
+  components: {
+    Navigation,
+  },
+}
+</script>
 
 <style>
 </style>

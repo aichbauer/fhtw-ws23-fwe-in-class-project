@@ -43,6 +43,7 @@
 
 <script>
 import { object, string } from 'yup';
+import { useUserStore } from '@/pinia-store/user';
 
 const loginSchema = object().shape({
   email: string().required().email(),
@@ -53,6 +54,7 @@ export default {
   name: 'LoginView',
   data() {
     return {
+      store: useUserStore(),
       form: {
         values: {
           email: '',
@@ -96,22 +98,22 @@ export default {
               email: '',
               password: '',
             };
-
+            this.store.login(this.form.values);
             // make a post request to the server with the json from this.form.values
-            const response = await fetch('/login', {
-              method: 'POST',
-              body: JSON.stringify(this.form.values),
-            });
-            // get the response from the server
-            const data = await response.json();
+            // const response = await fetch('/login', {
+            //   method: 'POST',
+            //   body: JSON.stringify(this.form.values),
+            // });
+            // // get the response from the server
+            // const data = await response.json();
 
-            // get the token from the data from the server
-            const token = data.accessToken;
-            // save the token in the browser for reuse
-            // e.g. for making requests to the servers private reqources
-            // e.g. update user, delete user...
-            // persisted after browser window is closed
-            localStorage.setItem('token', token);
+            // // get the token from the data from the server
+            // const token = data.accessToken;
+            // // save the token in the browser for reuse
+            // // e.g. for making requests to the servers private reqources
+            // // e.g. update user, delete user...
+            // // persisted after browser window is closed
+            // localStorage.setItem('token', token);
             // removed after browser window ist closed
             // sessionStorage.setItem('token', token);
             // JWT - JSON Web Token

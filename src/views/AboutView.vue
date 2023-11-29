@@ -3,11 +3,11 @@
   <div class="about">
     <Title type="h1">Profil</Title>
     <div v-if="!edit">
-      <Paragraph>
+      <Paragraph v-if="this.store.isLoggedIn">
         <b>
           Name:
         </b>
-        {{ profile.name }}
+        {{ this.store.username }}
       </Paragraph>
     </div>
     <div v-if="edit">
@@ -24,15 +24,14 @@ import Title from '@/components/atoms/Title.vue';
 import Paragraph from '@/components/atoms/Paragraph.vue';
 import Button from '@/components/atoms/Button.vue';
 import FormField from '@/components/molecules/FormField.vue';
+import { useUserStore } from '@/pinia-store/user';
+
 
 export default {
   name: 'AboutView',
   data() {
     return ({
-      profile: {
-        name: 'Lukas',
-      },
-      edit: false,
+      store: useUserStore(),
     });
   },
   methods: {
@@ -40,6 +39,10 @@ export default {
       console.log(test);
       this.edit = !this.edit;
     },
+  },
+  mounted: async function () {
+    console.log('mounted about');
+    console.log(this.store.isLoggedIn);
   },
   components: {
     Title,
