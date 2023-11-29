@@ -1,5 +1,5 @@
 <template>
-  <button @click="handleClick">
+  <button @click="$emit('increaseCountBy', 1)">
     <slot></slot>
   </button>
 </template>

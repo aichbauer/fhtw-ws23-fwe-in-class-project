@@ -3,6 +3,10 @@
     <!-- iterate over all posts from data, we need a key -->
     <!-- we need a key (this is for rerendering, to verify uniqueness) -->
     <!-- we use the post.id for this -->
+    <div v-bind:class="this.hello">
+      {{ this.hello }}
+    </div>
+    <Button @increase-count-by="increaseCount"></Button>
     <div v-for="post in posts" v-bind:key="post.id">
       <ul>
         <li>
@@ -20,6 +24,7 @@
 <script>
 // @ is an alias to /src
 import axios from 'axios';
+import Button from '@/components/atoms/Button.vue';
 
 // async function fetchDataPromise() {
 //   // call the url (default is a get request)
@@ -94,17 +99,25 @@ export default {
   data() {
     return {
       posts: [],
+      hello: 'Hello World',
+      count: 0,
     };
   },
   beforeCreate: async function () {
     const posts = await fetchDataAxios();
     this.posts = posts;
   },
-  components: {},
+  components: {
+    Button,
+  },
   methods: {
-    buttonClick() {
-      console.log('Hello World');
-    }
+    buttonClick(text) {
+      console.log(text);
+    },
+    increaseCount(n) {
+      this.count += n;
+      console.log(this.count);
+    },
   }
 }
 </script>
