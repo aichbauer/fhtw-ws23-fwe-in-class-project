@@ -14,6 +14,27 @@
     >
       Decrease Count
     </Button>
+    <div>
+      Vuex
+      {{ this.$store.state.count }}
+    </div>
+    <button @click="this.$store.dispatch('increment', { interval: 2 })">
+      Increment
+    </button>
+    <div>
+      Pinia
+      {{ this.store.count }}
+    </div>
+    <button @click="this.store.increment">
+      Increment
+    </button>
+    <div>
+      Pinia
+      {{ this.storePlus.count }}
+    </div>
+    <button @click="this.storePlus.increment({ interval: 2 })">
+      Increment
+    </button>
     <div v-for="post in posts" v-bind:key="post.id">
       <ul>
         <li>
@@ -32,6 +53,8 @@
 // @ is an alias to /src
 import axios from 'axios';
 import Button from '@/components/atoms/Button.vue';
+import { useCounterStore } from '@/pinia-store';
+import useCounterStorePlus from '@/pinia-store/counter';
 
 // async function fetchDataPromise() {
 //   // call the url (default is a get request)
@@ -105,6 +128,8 @@ export default {
   name: 'HomeView',
   data() {
     return {
+      store: useCounterStore(),
+      storePlus: useCounterStorePlus(),
       posts: [],
       hello: 'Hello World',
       count: 0,
@@ -113,6 +138,12 @@ export default {
   beforeCreate: async function () {
     const posts = await fetchDataAxios();
     this.posts = posts;
+    console.log('this.$store')
+    console.log(this.$store)
+    console.log('this.store')
+    console.log(this.store)
+    console.log('this.storeplus')
+    console.log(this.storeplus)
   },
   components: {
     Button,
